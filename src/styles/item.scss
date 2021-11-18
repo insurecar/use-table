@@ -1,0 +1,21 @@
+.item {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #dde9ee;
+  box-sizing: border-box;
+}
+
+.item input {
+  visibility: hidden;
+}
+
+.item-checked {
+  background: #0d8057;
+  border: 1px solid #dde9ee;
+  box-sizing: border-box;
+  background-image: url("./icons/check2.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-size: 80%;
+  background-position: center;
+}

@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { fetch } from "./fetching";
-import { format, formatISO, toDate } from "date-fns";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
 export const App = () => {
   const [data, setData] = useState([]);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(5);
 
   useEffect(() => {
     fetch(count).then((data) => {
       setData(data.data);
     });
-  }, [count, JSON.stringify(data)]);
+    // }, [count, JSON.stringify(data)]);
+  }, [count]);
 
   const handleChange = (element) => {
     const existElement = localState.filter((elem) => element.id === elem.id);
@@ -39,7 +41,7 @@ export const App = () => {
     setClearData((state) => !state);
   };
 
-  // console.log("%c Local STATE", "padding: 20px; background: coral", localState);
+  console.log(moment(1637154341000).format("DD-MM-yyyy"));
 
   return (
     <div className="box">
@@ -79,6 +81,8 @@ export const App = () => {
       >
         Press Button
       </button>
+      {/* <input type="date" value="" /> */}
+      <DatePicker minDate={new Date()} showDisabledMonthNavigation />
     </div>
   );
 };
