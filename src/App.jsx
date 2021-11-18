@@ -11,6 +11,8 @@ export const App = () => {
   const [clearData, setClearData] = useState(false);
   const [count, setCount] = useState(5);
 
+  console.log(localState);
+
   useEffect(() => {
     fetch(count).then((data) => {
       setData(data.data);
@@ -18,7 +20,7 @@ export const App = () => {
     // }, [count, JSON.stringify(data)]);
   }, [count]);
 
-  const handleChange = (element) => {
+  const handleChangeCheckbox = (element) => {
     const existElement = localState.filter((elem) => element.id === elem.id);
     if (existElement.length) {
       setLocalState(localState.filter((elem) => element.id !== elem.id));
@@ -28,9 +30,12 @@ export const App = () => {
   };
 
   const handleInput = (value, id) => {
+    // console.log("%c handleValue", "background: coral; padding: 20px", value);
+    // console.log("%c handleId", "background: green; padding: 20px", id);
+    // console.log(localState);
     setLocalState(
       localState.map((elem) => {
-        if (elem.id === id) elem.country = value;
+        if (elem.id === id) elem.phone = value;
         return elem;
       })
     );
@@ -40,8 +45,6 @@ export const App = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
-
-  console.log(moment(1637154341000).format("DD-MM-yyyy"));
 
   return (
     <div className="box">
@@ -63,7 +66,7 @@ export const App = () => {
             return (
               <Item
                 elem={elem}
-                handleCheckbox={handleChange}
+                handleCheckbox={handleChangeCheckbox}
                 handleInput={handleInput}
                 clearData={clearData}
                 key={elem.id}

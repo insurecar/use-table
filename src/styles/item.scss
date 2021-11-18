@@ -19,3 +19,16 @@
   background-size: 80%;
   background-position: center;
 }
+
+.item-tr td {
+  font-size: 30px;
+  @include fluid-type(385px, 1920px, 12px, 15px);
+  color: #43727f;
+}
+
+.item-tr td:nth-child(2),
+.item-tr td:nth-child(3),
+.item-tr td:nth-child(5) {
+  //   background: green;
+  font-family: Roboto-Light;
+}
