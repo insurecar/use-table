@@ -4,7 +4,7 @@ import moment from "moment";
 
 export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   const [checked, setChecked] = useState(false);
-  const [inputValue, setInputValue] = useState(elem.phone);
+  const [inputValue, setInputValue] = useState("");
 
   const classes = cs("item", { "item-checked ": checked });
 
@@ -25,7 +25,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   }, [clearData]);
 
   useEffect(() => {
-    setInputValue(elem.phone);
+    setInputValue(elem.address);
   }, [elem]);
 
   return (
@@ -35,11 +35,13 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
           <input type="checkbox" onChange={checkBoxHandler} checked={checked} />
         </label>
       </td>
-      <td>{moment(elem.country * 1000).format("DD-YY-yyyy")}</td>
-      <td>{elem.last_name}</td>
-      <td>{elem.country}</td>
-      <td>{elem.date_of_birth}</td>
-      <td>{elem.age}</td>
+      <td>{moment(elem.dateOrdered * 1000).format("DD-YY-yyyy")}</td>
+      <td>{elem.name}</td>
+      <td className="item-tr__count">
+        <div> {elem.count} </div>
+      </td>
+      <td className="item-tr__brand">{elem.brand}</td>
+      <td>{elem.countfColors}</td>
       <td>
         {checked ? (
           <input
@@ -47,10 +49,10 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
             value={inputValue}
           />
         ) : (
-          elem.phone
+          elem.address
         )}
       </td>
-      <td>{elem.phone}</td>
+      <td>{elem.desiredDate}</td>
     </tr>
   );
 };

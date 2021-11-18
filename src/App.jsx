@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { fetch } from "./fetching";
+import { fetchLength } from "./fetching";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import loader from "./styles/icons/loader.png";
 
 export const App = () => {
   const [data, setData] = useState([]);
+  const [dataLength, setDataLength] = useState(0);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
   const [count, setCount] = useState(5);
-
-  console.log(localState);
+  const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
 
   useEffect(() => {
     fetch(count).then((data) => {
@@ -19,6 +20,14 @@ export const App = () => {
     });
     // }, [count, JSON.stringify(data)]);
   }, [count]);
+
+  useEffect(() => {
+    fetchLength().then(({ data: { length } }) => setDataLength(length));
+  }, []);
+
+  useEffect(() => {
+    setCountOfCheckedElement(localState.length);
+  }, [localState.length]);
 
   const handleChangeCheckbox = (element) => {
     const existElement = localState.filter((elem) => element.id === elem.id);
@@ -30,12 +39,9 @@ export const App = () => {
   };
 
   const handleInput = (value, id) => {
-    // console.log("%c handleValue", "background: coral; padding: 20px", value);
-    // console.log("%c handleId", "background: green; padding: 20px", id);
-    // console.log(localState);
     setLocalState(
       localState.map((elem) => {
-        if (elem.id === id) elem.phone = value;
+        if (elem.id === id) elem.address = value;
         return elem;
       })
     );
@@ -46,8 +52,24 @@ export const App = () => {
     setClearData((state) => !state);
   };
 
+  // console.log("Кількість вибрани елементів складає", countOfCheckedElement);
+
+  console.log("Довжина вибраних елементів", countOfCheckedElement);
+
   return (
     <div className="box">
+      <div className="box__send-order">
+        <button
+          onClick={() => {
+            handleSetData();
+            fetch(count).then(({ data }) => setData(data));
+          }}
+          disabled={!Boolean(countOfCheckedElement)}
+        >
+          Повторити обрані замовлення
+        </button>
+      </div>
+
       <table className="table">
         <thead>
           <tr className="table__main-tr">
@@ -75,15 +97,18 @@ export const App = () => {
           })}
         </tbody>
       </table>
-      <button onClick={() => setCount(count + 3)}>Завантажити більше</button>
-      <button
-        onClick={() => {
-          handleSetData();
-          fetch(count).then(({ data }) => setData(data));
-        }}
-      >
-        Press Button
-      </button>
+      <div className="download-more">
+        <button
+          onClick={() => setCount(count + 3)}
+          disabled={dataLength <= count}
+        >
+          <div>
+            <img src={loader} alt="loader" />
+          </div>
+          Показати ще
+        </button>
+      </div>
+
       {/* <input type="date" value="" /> */}
       <DatePicker minDate={new Date()} showDisabledMonthNavigation />
     </div>

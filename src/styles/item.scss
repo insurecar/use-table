@@ -32,3 +32,22 @@
   //   background: green;
   font-family: Roboto-Light;
 }
+
+.item-tr td:nth-child(4),
+.item-tr td:nth-child(6) {
+  text-align: center;
+}
+
+.item-tr__count {
+  font-family: Roboto-Bold;
+
+  div {
+    width: 100%;
+    border: 1px solid #dde9ee;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+.item_tr__brand {
+  text-align: right !important;
+}
