@@ -25,7 +25,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   }, [clearData]);
 
   useEffect(() => {
-    setInputValue(elem.address);
+    setInputValue(elem.count);
   }, [elem]);
 
   return (
@@ -41,16 +41,24 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
         <div> {elem.count} </div>
       </td>
       <td className="item-tr__brand">{elem.brand}</td>
-      <td>{elem.countfColors}</td>
       <td>
+        {" "}
         {checked ? (
           <input
             onChange={(e) => handleInput11(e, elem.id)}
             value={inputValue}
           />
         ) : (
-          elem.address
+          elem.countfColors
         )}
+      </td>
+      <td>
+        <select name="" id="">
+          <option value="">1</option>
+          <option value="">2</option>
+          <option value="">3</option>
+          <option value="">4</option>
+        </select>
       </td>
       <td>{elem.desiredDate}</td>
     </tr>

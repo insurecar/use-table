@@ -5,14 +5,30 @@ import { fetchLength } from "./fetching";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import loader from "./styles/icons/loader.png";
+import cn from "classnames";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import check from "./styles/icons/inform.png";
 
 export const App = () => {
   const [data, setData] = useState([]);
   const [dataLength, setDataLength] = useState(0);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(3);
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
+
+  const notify = () =>
+    toast.info(
+      "Дякую, замовлення прийнято! Ваш менеджер вже сповіщений, будь ласка, очікуйте на зворотній зв'язок.!",
+      {
+        icon: () => <img src={check} alt="inform" />,
+      }
+    );
+
+  const classes = cn("box__send-order", {
+    "box__send-order-disabled": !Boolean(countOfCheckedElement),
+  });
 
   useEffect(() => {
     fetch(count).then((data) => {
@@ -41,7 +57,7 @@ export const App = () => {
   const handleInput = (value, id) => {
     setLocalState(
       localState.map((elem) => {
-        if (elem.id === id) elem.address = value;
+        if (elem.id === id) elem.countfColors = value;
         return elem;
       })
     );
@@ -51,16 +67,29 @@ export const App = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
-
-  // console.log("Кількість вибрани елементів складає", countOfCheckedElement);
-
-  console.log("Довжина вибраних елементів", countOfCheckedElement);
+  const classesForDownloadMore = cn("download-more", {
+    "download-more-display-none": dataLength <= count,
+  });
+  console.log(localState);
 
   return (
     <div className="box">
-      <div className="box__send-order">
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        toastClassName="SUPPERBOX"
+      />
+      <div className={classes}>
         <button
           onClick={() => {
+            notify();
             handleSetData();
             fetch(count).then(({ data }) => setData(data));
           }}
@@ -97,7 +126,7 @@ export const App = () => {
           })}
         </tbody>
       </table>
-      <div className="download-more">
+      <div className={classesForDownloadMore}>
         <button
           onClick={() => setCount(count + 3)}
           disabled={dataLength <= count}
