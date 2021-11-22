@@ -105,6 +105,7 @@ tfoot td {
 }
 
 .box__send-order {
+  cursor: pointer;
   display: flex;
   justify-content: end;
 
@@ -117,6 +118,7 @@ tfoot td {
     background: #43727f;
     color: #fff;
     text-transform: uppercase;
+    cursor: pointer;
   }
 
   &-disabled {
@@ -133,13 +135,12 @@ tfoot td {
   background: #0d8057;
   color: #fff;
   font-family: Roboto-Bold;
-  width: 362px;
   height: 206px;
 }
 button[type="button"].Toastify__close-button.Toastify__close-button--light {
   background: none;
   width: 20px;
-  height: 10px;
+  height: 40px;
 }
 
 .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
@@ -148,9 +149,14 @@ button[type="button"].Toastify__close-button.Toastify__close-button--light {
 .Toastify__toast-icon {
 }
 
+.Toastify__toast-container.Toastify__toast-container--top-right {
+  width: 362px;
+}
+
 .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
   width: 60px;
   height: 60px;
+  margin-right: 20px;
 
   img {
     width: 100%;

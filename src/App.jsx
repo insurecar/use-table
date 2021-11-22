@@ -15,7 +15,7 @@ export const App = () => {
   const [dataLength, setDataLength] = useState(0);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(9);
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
 
   const notify = () =>
@@ -70,12 +70,11 @@ export const App = () => {
   const classesForDownloadMore = cn("download-more", {
     "download-more-display-none": dataLength <= count,
   });
-  console.log(localState);
 
   return (
     <div className="box">
       <ToastContainer
-        position="top-left"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -83,7 +82,7 @@ export const App = () => {
         rtl={false}
         pauseOnFocusLoss
         draggable
-        pauseOnHover
+        // pauseOnHover
         toastClassName="SUPPERBOX"
       />
       <div className={classes}>
@@ -128,7 +127,7 @@ export const App = () => {
       </table>
       <div className={classesForDownloadMore}>
         <button
-          onClick={() => setCount(count + 3)}
+          onClick={() => setCount(count + 6)}
           disabled={dataLength <= count}
         >
           <div>

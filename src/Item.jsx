@@ -1,12 +1,34 @@
 import React, { useState, useEffect } from "react";
 import cs from "classnames";
 import moment from "moment";
+import Select from "react-select";
 
 export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   const [checked, setChecked] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const classes = cs("item", { "item-checked ": checked });
+
+  const options = [
+    {
+      value: "chocolate",
+      label: "м. Львів вул. Залізнична, буд. 65",
+    },
+    { value: "strawberry", label: "м. Львів вул. УПА, буд. 65" },
+    { value: "vanilla", label: "м. Львів вул. Квітки, буд. 65" },
+    { value: "vanjj", label: "м. Львів вул. Замарстинівська, буд. 65" },
+    { value: "chocolaввte", label: "м. Львів вул. Залізнична, буд. 65" },
+    { value: "strawввberry", label: "м. Львів вул. УПА, буд. 65" },
+    { value: "vaniвваіваlla", label: "м. Львів вул. Квітки, буд. 65" },
+    { value: "vanіваіваjj", label: "м. Львів вул. Замарстинівська, буд. 65" },
+    { value: "strawberry", label: "м. Львів вул. УПА, буд. 65" },
+    { value: "vanilla", label: "м. Львів вул. Квітки, буд. 65" },
+    { value: "vanjj", label: "м. Львів вул. Замарстинівська, буд. 65" },
+    { value: "chocolaввte", label: "м. Львів вул. Залізнична, буд. 65" },
+    { value: "strawввberry", label: "м. Львів вул. УПА, буд. 65" },
+    { value: "vaniвваіваlla", label: "м. Львів вул. Квітки, буд. 65" },
+    { value: "vanіваіваjj", label: "м. Львів вул. Замарстинівська, буд. 65" },
+  ];
 
   const checkBoxHandler = () => {
     handleCheckbox(elem);
@@ -25,7 +47,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   }, [clearData]);
 
   useEffect(() => {
-    setInputValue(elem.count);
+    setInputValue(elem.countfColors);
   }, [elem]);
 
   return (
@@ -53,14 +75,13 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
         )}
       </td>
       <td>
-        <select name="" id="">
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
-          <option value="">4</option>
-        </select>
+        <Select
+          options={options}
+          defaultValue={options[0]}
+          className="selected"
+        />
       </td>
-      <td>{elem.desiredDate}</td>
+      <td>{moment(elem.desiredDate).format("DD-MM-yyyy")}</td>
     </tr>
   );
 };

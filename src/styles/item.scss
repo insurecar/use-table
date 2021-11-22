@@ -51,3 +51,21 @@
 .item_tr__brand {
   text-align: right !important;
 }
+
+.selected {
+  .css-1s2u09g-control {
+    border: 1px solid #dde9ee;
+    border-radius: 0;
+    font-family: Roboto-Bold;
+    @include fluid-type(385px, 1920px, 10px, 14px);
+    color: #43727f;
+  }
+
+  svg {
+    fill: #43727f;
+  }
+}
+
+.css-319lph-ValueContainer .css-qc6sy-singleValue {
+  color: #43727f;
+}
