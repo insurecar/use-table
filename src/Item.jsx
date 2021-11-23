@@ -3,18 +3,11 @@ import cn from "classnames";
 import moment from "moment";
 import Select from "react-select";
 
-export const Item = ({
-  elem,
-  handleCheckbox,
-  handleInput,
-  clearData,
-  isVisible,
-}) => {
+export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   const [checked, setChecked] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const classes = cn("item", { "item-checked ": checked });
-  const isVisibleItem = cn("item-tr", { "item-tr__hide": !isVisible });
 
   const options = [
     {
@@ -58,7 +51,7 @@ export const Item = ({
   }, [elem]);
 
   return (
-    <tr key={elem.id} className={isVisibleItem}>
+    <tr key={elem.id} className="item-tr">
       <td>
         <label className={classes}>
           <input type="checkbox" onChange={checkBoxHandler} checked={checked} />
@@ -70,12 +63,13 @@ export const Item = ({
         {checked ? (
           <>
             <input
+              maxLength="6"
               className={cn("item-tr__count-inputCountOfOrder", {
                 "item-tr__count-inputCountOfOrder-error": elem.error,
               })}
               onChange={(e) => handleInput11(e, elem.id)}
               value={inputValue}
-              type="number"
+              type="text"
             />
             {elem.error ? (
               <span className=" item-tr__count-showError">
@@ -84,7 +78,9 @@ export const Item = ({
             ) : null}
           </>
         ) : (
-          <div className="item-tr__count-divCountOfOrder "> {elem.count}</div>
+          <div className="item-tr__count-divCountOfOrder ">
+            {elem.count.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ")}
+          </div>
         )}
       </td>
       <td className="item-tr__brand">{elem.brand}</td>

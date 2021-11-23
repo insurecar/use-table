@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { fetch } from "./fetching";
-import { fetchLength } from "./fetching";
 import { Loader } from "./Loader";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -46,12 +45,8 @@ export const App = () => {
     fetch().then((data) => {
       setVisibleLoader(true);
       setData(data.data);
+      setDataLength(data.data.length);
     });
-    // }, [count, JSON.stringify(data)]);
-  }, []);
-
-  useEffect(() => {
-    fetchLength().then(({ data: { length } }) => setDataLength(length));
   }, []);
 
   useEffect(() => {
@@ -59,6 +54,7 @@ export const App = () => {
   }, [localState.length]);
 
   const handleChangeCheckbox = (element) => {
+    console.log(element);
     const existElement = localState.filter((elem) => element.id === elem.id);
     if (existElement.length) {
       setLocalState(localState.filter((elem) => element.id !== elem.id));
@@ -87,8 +83,6 @@ export const App = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
-
-  console.log(localState.some((el) => el.error));
 
   return (
     <div className="box">
@@ -141,11 +135,12 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((elem, index) => {
+          {data.slice(0, count).map((elem) => {
+            console.log("%c3 INDEX", "background: red; padding: 20px");
+
             return (
               <Item
                 elem={elem}
-                isVisible={index < count}
                 handleCheckbox={handleChangeCheckbox}
                 handleInput={handleInput}
                 clearData={clearData}
@@ -157,7 +152,7 @@ export const App = () => {
       </table>
       <div className={classesForDownloadMore}>
         <button
-          onClick={() => setCount(count + 1)}
+          onClick={() => setCount(count + 10)}
           disabled={dataLength <= count}
         >
           <div>
