@@ -61,11 +61,15 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
       <td>{elem.name}</td>
       <td className="item-tr__count">
         {checked ? (
-          <input
-            className="item-tr__count-inputCountOfOrder"
-            onChange={(e) => handleInput11(e, elem.id)}
-            value={inputValue}
-          />
+          <>
+            <input
+              className="item-tr__count-inputCountOfOrder"
+              onChange={(e) => handleInput11(e, elem.id)}
+              value={inputValue}
+              type="number"
+            />
+            {elem.error ? <span>Error</span> : null}
+          </>
         ) : (
           <div className="item-tr__count-divCountOfOrder"> {elem.count}</div>
         )}

@@ -63,6 +63,11 @@
     color: #43727f;
     outline-color: #43727f;
     @include fluid-type(385px, 1920px, 12px, 14px);
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 }
 .item_tr__brand {

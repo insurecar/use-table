@@ -57,7 +57,14 @@ export const App = () => {
   const handleInput = (value, id) => {
     setLocalState(
       localState.map((elem) => {
-        if (elem.id === id) elem.count = value;
+        if (elem.id === id) {
+          elem.count = value;
+          if (!+elem.count) {
+            elem.error = true;
+          } else {
+            elem.error = false;
+          }
+        }
         return elem;
       })
     );
