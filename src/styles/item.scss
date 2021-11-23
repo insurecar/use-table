@@ -41,11 +41,28 @@
 .item-tr__count {
   font-family: Roboto-Bold;
 
-  div {
+  &-divCountOfOrder {
     width: 100%;
     border: 1px solid #dde9ee;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    width: 100px;
+    height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include fluid-type(385px, 1920px, 12px, 14px);
+  }
+
+  &-inputCountOfOrder {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    border: 2px solid #dde9ee;
+    box-sizing: border-box;
+    font-family: Roboto-Bold;
+    color: #43727f;
+    outline-color: #43727f;
+    @include fluid-type(385px, 1920px, 12px, 14px);
   }
 }
 .item_tr__brand {

@@ -47,7 +47,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   }, [clearData]);
 
   useEffect(() => {
-    setInputValue(elem.countfColors);
+    setInputValue(elem.count);
   }, [elem]);
 
   return (
@@ -60,20 +60,18 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
       <td>{moment(elem.dateOrdered * 1000).format("DD-YY-yyyy")}</td>
       <td>{elem.name}</td>
       <td className="item-tr__count">
-        <div> {elem.count} </div>
-      </td>
-      <td className="item-tr__brand">{elem.brand}</td>
-      <td>
-        {" "}
         {checked ? (
           <input
+            className="item-tr__count-inputCountOfOrder"
             onChange={(e) => handleInput11(e, elem.id)}
             value={inputValue}
           />
         ) : (
-          elem.countfColors
+          <div className="item-tr__count-divCountOfOrder"> {elem.count}</div>
         )}
       </td>
+      <td className="item-tr__brand">{elem.brand}</td>
+      <td>{elem.countOfColors}</td>
       <td>
         <Select
           options={options}

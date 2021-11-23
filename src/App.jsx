@@ -57,7 +57,7 @@ export const App = () => {
   const handleInput = (value, id) => {
     setLocalState(
       localState.map((elem) => {
-        if (elem.id === id) elem.countfColors = value;
+        if (elem.id === id) elem.count = value;
         return elem;
       })
     );
@@ -70,6 +70,8 @@ export const App = () => {
   const classesForDownloadMore = cn("download-more", {
     "download-more-display-none": dataLength <= count,
   });
+
+  console.log(localState);
 
   return (
     <div className="box">
@@ -138,7 +140,7 @@ export const App = () => {
       </div>
 
       {/* <input type="date" value="" /> */}
-      <DatePicker minDate={new Date()} showDisabledMonthNavigation />
+      {/* <DatePicker minDate={new Date()} showDisabledMonthNavigation /> */}
     </div>
   );
 };
