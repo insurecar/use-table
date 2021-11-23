@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import cs from "classnames";
+import cn from "classnames";
 import moment from "moment";
 import Select from "react-select";
 
@@ -7,7 +7,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   const [checked, setChecked] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const classes = cs("item", { "item-checked ": checked });
+  const classes = cn("item", { "item-checked ": checked });
 
   const options = [
     {
@@ -63,15 +63,21 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
         {checked ? (
           <>
             <input
-              className="item-tr__count-inputCountOfOrder"
+              className={cn("item-tr__count-inputCountOfOrder", {
+                "item-tr__count-inputCountOfOrder-error": elem.error,
+              })}
               onChange={(e) => handleInput11(e, elem.id)}
               value={inputValue}
               type="number"
             />
-            {elem.error ? <span>Error</span> : null}
+            {elem.error ? (
+              <span className=" item-tr__count-showError">
+                Поле не може бути порожнім
+              </span>
+            ) : null}
           </>
         ) : (
-          <div className="item-tr__count-divCountOfOrder"> {elem.count}</div>
+          <div className="item-tr__count-divCountOfOrder "> {elem.count}</div>
         )}
       </td>
       <td className="item-tr__brand">{elem.brand}</td>

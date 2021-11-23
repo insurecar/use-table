@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { fetch } from "./fetching";
 import { fetchLength } from "./fetching";
+import { Loader } from "./Loader";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import loader from "./styles/icons/loader.png";
@@ -17,6 +18,7 @@ export const App = () => {
   const [clearData, setClearData] = useState(false);
   const [count, setCount] = useState(9);
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
+  const [visibleLoader, setVisibleLoader] = useState(false);
 
   const notify = () =>
     toast.info(
@@ -27,11 +29,22 @@ export const App = () => {
     );
 
   const classes = cn("box__send-order", {
-    "box__send-order-disabled": !Boolean(countOfCheckedElement),
+    "box__send-order-disabled":
+      !Boolean(countOfCheckedElement) || localState.some((el) => el.error),
+  });
+
+  const classesForDownloadMore = cn("download-more", {
+    "download-more-display-none": dataLength <= count,
+  });
+
+  const classShowHideLoader = cn("box__loader", {
+    "box__loader-hide": visibleLoader,
   });
 
   useEffect(() => {
-    fetch(count).then((data) => {
+    setVisibleLoader(false);
+    fetch().then((data) => {
+      setVisibleLoader(true);
       setData(data.data);
     });
     // }, [count, JSON.stringify(data)]);
@@ -74,11 +87,8 @@ export const App = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
-  const classesForDownloadMore = cn("download-more", {
-    "download-more-display-none": dataLength <= count,
-  });
 
-  console.log(localState);
+  console.log(localState.some((el) => el.error));
 
   return (
     <div className="box">
@@ -92,8 +102,15 @@ export const App = () => {
         pauseOnFocusLoss
         draggable
         // pauseOnHover
-        toastClassName="SUPPERBOX"
+        toastClassName="customToast"
       />
+      <div className="box__title">
+        Нове замовлення з історії
+        <div className={classShowHideLoader}>
+          <Loader />
+          <div className="box__loader-title">Зачекайте, будь ласка</div>
+        </div>
+      </div>
       <div className={classes}>
         <button
           onClick={() => {
@@ -101,7 +118,10 @@ export const App = () => {
             handleSetData();
             fetch(count).then(({ data }) => setData(data));
           }}
-          disabled={!Boolean(countOfCheckedElement)}
+          disabled={
+            !Boolean(countOfCheckedElement) || localState.some((el) => el.error)
+          }
+          // disabled={false}
         >
           Повторити обрані замовлення
         </button>

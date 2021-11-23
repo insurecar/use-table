@@ -68,6 +68,22 @@
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
+
+    &-error {
+      color: #d91f1f;
+      border: 2px solid #d91f1f;
+      outline-color: #d91f1f;
+    }
+  }
+
+  &-showError {
+    color: #d91f1f;
+    font-family: Roboto-Light;
+    @include fluid-type(385px, 1920px, 12px, 14px);
+    @include fluid-size("lien-height", 385px, 1920px, 14px, 16px);
+    padding-top: 4px;
+    text-align: left;
+    display: inline-block;
   }
 }
 .item_tr__brand {

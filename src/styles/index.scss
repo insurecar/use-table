@@ -1,6 +1,39 @@
 .box {
   margin: 0 auto;
   width: 1180px;
+
+  &__title {
+    color: red;
+    text-align: center;
+    font-family: Roboto-Bold;
+    color: #0d8057;
+    @include fluid-type(385px, 1920px, 20px, 30px);
+    position: relative;
+  }
+
+  &__loader {
+    padding-top: 40px;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    @include fluid-size("width", 385px, 1920px, 190px, 272px);
+    @include fluid-size("height", 385px, 1920px, 125px, 181px);
+    background: #fff;
+    transform: translateX(-50%);
+    border: 1px solid #dde9ee;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 20px rgba(67, 114, 127, 0.19);
+
+    &-title {
+      color: #0d8057;
+      font-size: 18px;
+      @include fluid-type(382px, 1920px, 12px, 18px);
+    }
+
+    &-hide {
+      display: none;
+    }
+  }
 }
 
 .table {
@@ -108,6 +141,7 @@ tfoot td {
   cursor: pointer;
   display: flex;
   justify-content: end;
+  @include fluid-size("margin-top", 385px, 1920px, 20px, 30px);
 
   button {
     @include fluid-size("width", 375px, 1920px, 300px, 480px);
@@ -125,11 +159,12 @@ tfoot td {
     button {
       color: lightsteelblue;
       background: lighten(#43727f, 50%);
+      cursor: not-allowed;
     }
   }
 }
 
-.SUPPERBOX {
+.customToast {
   display: flex;
   align-items: flex-start;
   background: #0d8057;
