@@ -3,11 +3,18 @@ import cn from "classnames";
 import moment from "moment";
 import Select from "react-select";
 
-export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
+export const Item = ({
+  elem,
+  handleCheckbox,
+  handleInput,
+  clearData,
+  isVisible,
+}) => {
   const [checked, setChecked] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const classes = cn("item", { "item-checked ": checked });
+  const isVisibleItem = cn("item-tr", { "item-tr__hide": !isVisible });
 
   const options = [
     {
@@ -51,7 +58,7 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   }, [elem]);
 
   return (
-    <tr key={elem.id} className="item-tr">
+    <tr key={elem.id} className={isVisibleItem}>
       <td>
         <label className={classes}>
           <input type="checkbox" onChange={checkBoxHandler} checked={checked} />

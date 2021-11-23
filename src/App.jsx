@@ -16,7 +16,7 @@ export const App = () => {
   const [dataLength, setDataLength] = useState(0);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
-  const [count, setCount] = useState(9);
+  const [count, setCount] = useState(5);
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
 
@@ -48,7 +48,7 @@ export const App = () => {
       setData(data.data);
     });
     // }, [count, JSON.stringify(data)]);
-  }, [count]);
+  }, []);
 
   useEffect(() => {
     fetchLength().then(({ data: { length } }) => setDataLength(length));
@@ -141,10 +141,11 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((elem) => {
+          {data.map((elem, index) => {
             return (
               <Item
                 elem={elem}
+                isVisible={index < count}
                 handleCheckbox={handleChangeCheckbox}
                 handleInput={handleInput}
                 clearData={clearData}
@@ -156,7 +157,7 @@ export const App = () => {
       </table>
       <div className={classesForDownloadMore}>
         <button
-          onClick={() => setCount(count + 6)}
+          onClick={() => setCount(count + 1)}
           disabled={dataLength <= count}
         >
           <div>
