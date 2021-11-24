@@ -5,9 +5,10 @@ import Select from "react-select";
 
 export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
   const [checked, setChecked] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValueOfCount, setInputValueOfCount] = useState("");
 
   const classes = cn("item", { "item-checked ": checked });
+  const [inputSelectOfAddress, setinputSelectOfAddress] = useState("");
 
   const options = [
     {
@@ -35,19 +36,27 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
     setChecked((state) => !state);
   };
 
-  const handleInput11 = ({ target: { value } }, id) => {
+  const handleInputOfCount = ({ target: { value } }, id) => {
     // console.log("value", value);
-    setInputValue(value);
+    setInputValueOfCount(value);
     handleInput(value, id);
   };
 
+  const handleChangeOfSelectAddress = (value, id) => {
+    console.log("%c VALUE Select", "background: coral; padding: 20px", value);
+    console.log("%c ID", "background: green; padding: 20px", id);
+  };
+
+  console.log(inputSelectOfAddress);
+
   useEffect(() => {
     setChecked(false);
-    setInputValue("");
+    setInputValueOfCount("");
   }, [clearData]);
 
   useEffect(() => {
-    setInputValue(elem.count);
+    setInputValueOfCount(elem.count);
+    setinputSelectOfAddress(options);
   }, [elem]);
 
   return (
@@ -67,8 +76,8 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
               className={cn("item-tr__count-inputCountOfOrder", {
                 "item-tr__count-inputCountOfOrder-error": elem.error,
               })}
-              onChange={(e) => handleInput11(e, elem.id)}
-              value={inputValue}
+              onChange={(e) => handleInputOfCount(e, elem.id)}
+              value={inputValueOfCount}
               type="text"
             />
             {elem.error ? (
@@ -88,7 +97,8 @@ export const Item = ({ elem, handleCheckbox, handleInput, clearData }) => {
       <td>
         <Select
           options={options}
-          defaultValue={options[0]}
+          value={inputSelectOfAddress[0]}
+          onChange={(e) => handleChangeOfSelectAddress(e, elem.id)}
           className="selected"
         />
       </td>
