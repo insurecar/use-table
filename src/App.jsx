@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { fetch } from "./fetching";
 import { Loader } from "./Loader";
+import { options } from "./arrayOfSelect";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import loader from "./styles/icons/loader.png";
@@ -54,7 +55,6 @@ export const App = () => {
   }, [localState.length]);
 
   const handleChangeCheckbox = (element) => {
-    console.log(element);
     const existElement = localState.filter((elem) => element.id === elem.id);
     if (existElement.length) {
       setLocalState(localState.filter((elem) => element.id !== elem.id));
@@ -83,6 +83,8 @@ export const App = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
+
+  console.log(localState);
 
   return (
     <div className="box">
@@ -136,8 +138,6 @@ export const App = () => {
         </thead>
         <tbody>
           {data.slice(0, count).map((elem) => {
-            console.log("%c3 INDEX", "background: red; padding: 20px");
-
             return (
               <Item
                 elem={elem}
@@ -145,6 +145,7 @@ export const App = () => {
                 handleInput={handleInput}
                 clearData={clearData}
                 key={elem.id}
+                options={options}
               />
             );
           })}
@@ -152,7 +153,7 @@ export const App = () => {
       </table>
       <div className={classesForDownloadMore}>
         <button
-          onClick={() => setCount(count + 10)}
+          onClick={() => setCount(count + 1)}
           disabled={dataLength <= count}
         >
           <div>
