@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import moment from "moment";
 import Select from "react-select";
+import calendar from "../src/styles/icons/calendar.png";
 
 export const Item = ({
   elem,
   handleCheckbox,
   handleInput,
+  handleSelect,
   clearData,
   options,
 }) => {
@@ -21,23 +23,27 @@ export const Item = ({
     setChecked((state) => !state);
   };
 
-  useEffect(() => {
-    setInputSelectOfAddress(options);
-    console.log("USE EFFECT");
-  }, [options.length]);
+  // useEffect(() => {
+  //   setInputSelectOfAddress(options);
+  // }, [options.length]);
 
   const handleInputOfCount = ({ target: { value } }, id) => {
-    setInputValueOfCount(value);
-    handleInput(value, id);
+    if (value.length < 7) {
+      setInputValueOfCount(value);
+      handleInput(value, id);
+    }
   };
 
   const handleChangeOfSelectAddress = (value, id) => {
-    // console.log(
-    //   "%c VALUE Select",
-    //   "background: coral; padding: 20px; border: 3px solid red",
-    //   value
-    // );
-    // console.log("%c ID", "background: green; padding: 20px", id);
+    setInputSelectOfAddress(value);
+    handleSelect(value, id);
+    console.log(
+      "%c VALUE Select",
+      "background: coral; padding: 20px; border: 3px solid red",
+      value
+    );
+
+    console.log("%c ID", "background: green; padding: 20px", id);
   };
 
   useEffect(() => {
@@ -47,7 +53,7 @@ export const Item = ({
 
   useEffect(() => {
     setInputValueOfCount(elem.count);
-    setInputSelectOfAddress(options);
+    setInputSelectOfAddress(options[0]);
   }, [elem]);
 
   return (
@@ -57,13 +63,12 @@ export const Item = ({
           <input type="checkbox" onChange={checkBoxHandler} checked={checked} />
         </label>
       </td>
-      <td>{moment(elem.desiredDate * 1000).format("DD-MM-yyyy")}</td>
+      <td>{moment(elem.dateOrdered * 1000).format("DD-MM-yyyy")}</td>
       <td>{elem.name}</td>
       <td className="item-tr__count">
         {checked ? (
           <>
             <input
-              maxLength="6"
               className={cn("item-tr__count-inputCountOfOrder", {
                 "item-tr__count-inputCountOfOrder-error": elem.error,
               })}
@@ -86,14 +91,29 @@ export const Item = ({
       <td className="item-tr__brand">{elem.brand}</td>
       <td>{elem.countOfColors}</td>
       <td>
-        <Select
-          options={options}
-          value={inputSelectOfAddress[0]}
-          onChange={(e) => handleChangeOfSelectAddress(e, elem.id)}
-          className="selected"
-        />
+        {checked ? (
+          <Select
+            options={options}
+            value={inputSelectOfAddress}
+            onChange={(e) => handleChangeOfSelectAddress(e, elem.id)}
+            className="selected"
+            disable
+          />
+        ) : (
+          <div>{inputSelectOfAddress.label}</div>
+        )}
       </td>
-      <td>{moment(elem.desiredDate * 1000).format("DD-MM-yyyy")}</td>
+      {/* <td className="wish-date"> */}
+      <td>
+        <div className="wrapper">
+          <div>
+            <div>
+              <img src={calendar} alt="" />
+            </div>
+          </div>
+          <div>{moment(elem.desiredDate * 1000).format("DD-MM-yyyy")}</div>
+        </div>
+      </td>
     </tr>
   );
 };

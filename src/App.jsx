@@ -20,6 +20,8 @@ export const App = () => {
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
 
+  // console.log(data);
+
   const notify = () =>
     toast.info(
       "Дякую, замовлення прийнято! Ваш менеджер вже сповіщений, будь ласка, очікуйте на зворотній зв'язок.!",
@@ -79,12 +81,16 @@ export const App = () => {
     );
   };
 
+  const handleSelect = (value, id) => {
+    console.log(localState);
+    console.log(value);
+    console.log(id);
+  };
+
   const handleSetData = () => {
     setLocalState([]);
     setClearData((state) => !state);
   };
-
-  console.log(localState);
 
   return (
     <div className="box">
@@ -143,6 +149,7 @@ export const App = () => {
                 elem={elem}
                 handleCheckbox={handleChangeCheckbox}
                 handleInput={handleInput}
+                handleSelect={handleSelect}
                 clearData={clearData}
                 key={elem.id}
                 options={options}
