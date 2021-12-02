@@ -9,6 +9,7 @@ import cn from "classnames";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import check from "./styles/icons/inform.png";
+import { newDate } from "./fetching";
 
 export const App = () => {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ export const App = () => {
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
   const [count, setCount] = useState(5);
-  const [address, setAddress] = useState([]);
+  // const [address, setAddress] = useState([]);
 
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
@@ -43,12 +44,14 @@ export const App = () => {
   });
 
   useEffect(() => {
-    setVisibleLoader(false);
-    fetch().then((data) => {
-      setVisibleLoader(true);
-      setData(data.data);
-      setDataLength(data.data.length);
-    });
+    // newDate().then((resp) => console.log(resp));
+    // setVisibleLoader(false);
+    // fetch().then((resp) => {
+    //   console.log("My API", resp);
+    //   setVisibleLoader(true);
+    //   setData(resp.data);
+    //   setDataLength(resp.data.length);
+    // });
   }, []);
 
   useEffect(() => {
@@ -63,6 +66,14 @@ export const App = () => {
       setLocalState([...localState, element]);
     }
   };
+
+  useEffect(() => {
+    newDate.then((resp) => {
+      setVisibleLoader(true);
+      setData(resp.data);
+      setDataLength(resp.data.length);
+    });
+  }, []);
 
   const handleInput = (value, id) => {
     console.log("value", value);
@@ -96,8 +107,10 @@ export const App = () => {
     setClearData((state) => !state);
   };
 
-  const handleDesireDate = (date) => {
-    console.log(date);
+  const handleDesireDate = (date, elem) => {
+    // localState.map(elem=> elem)
+    console.log("APID", elem);
+    console.log("APPDATE", date);
   };
 
   return (
@@ -126,7 +139,7 @@ export const App = () => {
           onClick={() => {
             notify();
             handleSetData();
-            fetch(count).then(({ data }) => setData(data));
+            // fetch(count).then(({ data }) => setData(data));
           }}
           disabled={
             !Boolean(countOfCheckedElement) || localState.some((el) => el.error)
@@ -151,7 +164,7 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          {data.slice(0, count).map((elem) => {
+          {/* {data.slice(0, count).map((elem) => {
             return (
               <Item
                 elem={elem}
@@ -164,7 +177,7 @@ export const App = () => {
                 handleDesireDate={handleDesireDate}
               />
             );
-          })}
+          })} */}
         </tbody>
       </table>
       <div className={classesForDownloadMore}>

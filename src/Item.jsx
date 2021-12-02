@@ -65,6 +65,12 @@ export const Item = ({
     setInputSelectOfAddress(options[0]);
   }, [elem]);
 
+  const handleLocalDesiredDate = (date, id) => {
+    // console.log("DATE LOCAL", date);
+    setDesireDate(date);
+    handleDesireDate(date, id);
+  };
+
   return (
     <tr key={elem.id} className="item-tr">
       <td>
@@ -100,7 +106,7 @@ export const Item = ({
       <td className="item-tr__brand">{elem.brand}</td>
       <td>{elem.countOfColors}</td>
       <td>
-        {checked ? (
+        {/* {checked ? (
           <Select
             options={options}
             value={inputSelectOfAddress}
@@ -110,7 +116,9 @@ export const Item = ({
           />
         ) : (
           <div>{inputSelectOfAddress.label}</div>
-        )}
+        )} */}
+
+        <div>{inputSelectOfAddress.label}</div>
       </td>
       <td>
         <div className="wrapper">
@@ -125,7 +133,7 @@ export const Item = ({
               minDate={minDate.setDate(minDate.getDate() + 3)}
               // locale={fi}
               selected={desireDate}
-              onChange={(date) => setDesireDate(date)}
+              onChange={(date) => handleLocalDesiredDate(date, elem.id)}
               disabled={!checked}
               dateFormat="dd-MM-yyyy"
             />
