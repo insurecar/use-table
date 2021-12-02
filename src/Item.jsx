@@ -3,6 +3,7 @@ import cn from "classnames";
 import moment from "moment";
 import Select from "react-select";
 import calendar from "../src/styles/icons/calendar.png";
+import DatePicker from "react-datepicker";
 
 export const Item = ({
   elem,
@@ -15,6 +16,11 @@ export const Item = ({
   const [checked, setChecked] = useState(false);
   const [inputValueOfCount, setInputValueOfCount] = useState("");
   const [inputSelectOfAddress, setInputSelectOfAddress] = useState("");
+  const [desireDate, setDesireDate] = useState(
+    new Date().setDate(new Date().getDate() + 3)
+  );
+
+  const minDate = new Date();
 
   const classes = cn("item", { "item-checked ": checked });
 
@@ -106,12 +112,28 @@ export const Item = ({
       {/* <td className="wish-date"> */}
       <td>
         <div className="wrapper">
-          <div>
+          <div className="wrapper__icon">
+            <div className="wrapper__icon-center">
+              <img src={calendar} alt="" />
+            </div>
+          </div>
+
+          <div className="wrapper__calendar">
+            <DatePicker
+              minDate={minDate.setDate(minDate.getDate() + 3)}
+              // locale={fi}
+              selected={desireDate}
+              onChange={(date) => setDesireDate(date)}
+              disabled={!checked}
+              dateFormat="dd-MM-yyyy"
+            />
+          </div>
+          {/* <div>
             <div>
               <img src={calendar} alt="" />
             </div>
           </div>
-          <div>{moment(elem.desiredDate * 1000).format("DD-MM-yyyy")}</div>
+          <div>{moment(elem.desiredDate * 1000).format("DD-MM-yyyy")}</div> */}
         </div>
       </td>
     </tr>

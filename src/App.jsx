@@ -3,7 +3,6 @@ import { Item } from "./Item";
 import { fetch } from "./fetching";
 import { Loader } from "./Loader";
 import { options } from "./arrayOfSelect";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import loader from "./styles/icons/loader.png";
 import cn from "classnames";
@@ -19,8 +18,6 @@ export const App = () => {
   const [count, setCount] = useState(5);
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
-
-  // console.log(data);
 
   const notify = () =>
     toast.info(
@@ -169,9 +166,8 @@ export const App = () => {
           Показати ще
         </button>
       </div>
-
-      {/* <input type="date" value="" /> */}
-      {/* <DatePicker minDate={new Date()} showDisabledMonthNavigation /> */}
     </div>
   );
 };
+
+// D.setDate(D.getDate() + 3);
