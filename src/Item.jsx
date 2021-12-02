@@ -12,6 +12,7 @@ export const Item = ({
   handleSelect,
   clearData,
   options,
+  handleDesireDate,
 }) => {
   const [checked, setChecked] = useState(false);
   const [inputValueOfCount, setInputValueOfCount] = useState("");
@@ -32,6 +33,8 @@ export const Item = ({
   // useEffect(() => {
   //   setInputSelectOfAddress(options);
   // }, [options.length]);
+
+  // console.log("options", options);
 
   const handleInputOfCount = ({ target: { value } }, id) => {
     if (value.length < 7) {
@@ -109,7 +112,6 @@ export const Item = ({
           <div>{inputSelectOfAddress.label}</div>
         )}
       </td>
-      {/* <td className="wish-date"> */}
       <td>
         <div className="wrapper">
           <div className="wrapper__icon">

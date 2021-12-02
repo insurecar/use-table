@@ -16,6 +16,8 @@ export const App = () => {
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
   const [count, setCount] = useState(5);
+  const [address, setAddress] = useState([]);
+
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
 
@@ -63,6 +65,8 @@ export const App = () => {
   };
 
   const handleInput = (value, id) => {
+    console.log("value", value);
+    console.log("id", id);
     setLocalState(
       localState.map((elem) => {
         if (elem.id === id) {
@@ -79,6 +83,9 @@ export const App = () => {
   };
 
   const handleSelect = (value, id) => {
+    localState.map((elem) =>
+      elem.id === id ? (elem.address = value.label) : elem
+    );
     console.log(localState);
     console.log(value);
     console.log(id);
@@ -87,6 +94,10 @@ export const App = () => {
   const handleSetData = () => {
     setLocalState([]);
     setClearData((state) => !state);
+  };
+
+  const handleDesireDate = (date) => {
+    console.log(date);
   };
 
   return (
@@ -150,6 +161,7 @@ export const App = () => {
                 clearData={clearData}
                 key={elem.id}
                 options={options}
+                handleDesireDate={handleDesireDate}
               />
             );
           })}
@@ -169,5 +181,3 @@ export const App = () => {
     </div>
   );
 };
-
-// D.setDate(D.getDate() + 3);
