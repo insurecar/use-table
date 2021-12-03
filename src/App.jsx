@@ -9,18 +9,18 @@ import cn from "classnames";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import check from "./styles/icons/inform.png";
-import { newDate } from "./fetching";
 
 export const App = () => {
   const [data, setData] = useState([]);
   const [dataLength, setDataLength] = useState(0);
   const [localState, setLocalState] = useState([]);
   const [clearData, setClearData] = useState(false);
-  const [count, setCount] = useState(5);
-  // const [address, setAddress] = useState([]);
+  const [count, setCount] = useState(9);
 
   const [countOfCheckedElement, setCountOfCheckedElement] = useState(0);
   const [visibleLoader, setVisibleLoader] = useState(false);
+
+  console.log("LocalState", localState);
 
   const notify = () =>
     toast.info(
@@ -68,12 +68,15 @@ export const App = () => {
   };
 
   useEffect(() => {
-    fetch.then((resp) => {
-      console.log(resp);
-      setVisibleLoader(true);
-      setData(resp.data);
-      setDataLength(resp.data.length);
-    });
+    const upData = () =>
+      fetch.then((resp) => {
+        console.log(resp.data);
+        setVisibleLoader(true);
+        setData(resp.data);
+        setDataLength(resp.data.length);
+      });
+
+    upData();
   }, []);
 
   const handleInput = (value, id) => {
@@ -140,7 +143,13 @@ export const App = () => {
           onClick={() => {
             notify();
             handleSetData();
-            fetch(count).then(({ data }) => setData(data));
+            // fetch().then(({ data }) => setData(data));
+            fetch.then((resp) => {
+              console.table(resp.data);
+              setVisibleLoader(true);
+              setData(resp.data);
+              setDataLength(resp.data.length);
+            });
           }}
           disabled={
             !Boolean(countOfCheckedElement) || localState.some((el) => el.error)

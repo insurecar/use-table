@@ -54,8 +54,6 @@ export const Item = ({
     console.log("%c ID", "background: green; padding: 20px", id);
   };
 
-  console.log(options);
-
   useEffect(() => {
     setChecked(false);
     setInputValueOfCount("");
@@ -63,7 +61,7 @@ export const Item = ({
 
   useEffect(() => {
     setInputValueOfCount(elem.count);
-    setInputSelectOfAddress(options[0]);
+    setInputSelectOfAddress(elem.address[0]);
   }, [elem]);
 
   const handleLocalDesiredDate = (date, id) => {
@@ -109,14 +107,14 @@ export const Item = ({
       <td>
         {checked ? (
           <Select
-            options={options}
+            options={elem.address}
             value={inputSelectOfAddress}
             onChange={(e) => handleChangeOfSelectAddress(e, elem.id)}
             className="selected"
             disable
           />
         ) : (
-          <div>{inputSelectOfAddress.label}</div>
+          <div>{inputSelectOfAddress.value}</div>
         )}
 
         {/* <div>{inputSelectOfAddress.label}</div> */}
