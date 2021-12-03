@@ -78,7 +78,7 @@ export const Item = ({
           <input type="checkbox" onChange={checkBoxHandler} checked={checked} />
         </label>
       </td>
-      <td>{moment(elem.dateOrdered * 1000).format("DD-MM-yyyy")}</td>
+      <td>{elem.dateOrdered}</td>
       <td>{elem.name}</td>
       <td className="item-tr__count">
         {checked ? (
@@ -106,7 +106,7 @@ export const Item = ({
       <td className="item-tr__brand">{elem.brand}</td>
       <td>{elem.countOfColors}</td>
       <td>
-        {/* {checked ? (
+        {checked ? (
           <Select
             options={options}
             value={inputSelectOfAddress}
@@ -116,9 +116,9 @@ export const Item = ({
           />
         ) : (
           <div>{inputSelectOfAddress.label}</div>
-        )} */}
+        )}
 
-        <div>{inputSelectOfAddress.label}</div>
+        {/* <div>{inputSelectOfAddress.label}</div> */}
       </td>
       <td>
         <div className="wrapper">

@@ -68,7 +68,8 @@ export const App = () => {
   };
 
   useEffect(() => {
-    newDate.then((resp) => {
+    fetch.then((resp) => {
+      console.log(resp);
       setVisibleLoader(true);
       setData(resp.data);
       setDataLength(resp.data.length);
@@ -139,7 +140,7 @@ export const App = () => {
           onClick={() => {
             notify();
             handleSetData();
-            // fetch(count).then(({ data }) => setData(data));
+            fetch(count).then(({ data }) => setData(data));
           }}
           disabled={
             !Boolean(countOfCheckedElement) || localState.some((el) => el.error)
@@ -164,7 +165,7 @@ export const App = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {data.slice(0, count).map((elem) => {
+          {data.slice(0, count).map((elem) => {
             return (
               <Item
                 elem={elem}
@@ -177,7 +178,7 @@ export const App = () => {
                 handleDesireDate={handleDesireDate}
               />
             );
-          })} */}
+          })}
         </tbody>
       </table>
       <div className={classesForDownloadMore}>

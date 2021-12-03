@@ -19,7 +19,7 @@ import axios from "axios";
 //   { token: "39de5a2f84f41ee99ccf5bc05f0b4e96" }
 // );
 
-export const newDate = axios.get(
+export const fetch = axios.get(
   "https://www.dunapack-tavria.com/ajax/profile/historyOrders",
   {
     headers: {
