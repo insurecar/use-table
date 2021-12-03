@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import cn from "classnames";
-import moment from "moment";
 import Select from "react-select";
 import calendar from "../src/styles/icons/calendar.png";
 import DatePicker from "react-datepicker";
@@ -54,6 +53,8 @@ export const Item = ({
 
     console.log("%c ID", "background: green; padding: 20px", id);
   };
+
+  console.log(options);
 
   useEffect(() => {
     setChecked(false);
